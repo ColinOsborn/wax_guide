@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://dataservice.accuweather.com/currentconditions/v1/332154?apikey=jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Authorization:
+      - Bearer jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - deflate;q=0.6
+      - gzip;q=1.0
+      - identity;q=0.3
+      Access-Control-Allow-Headers:
+      - origin, x-requested-with, accept
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '3628800'
+      Authorization:
+      - Bearer jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx
+      Cache-Control:
+      - public
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 16 Feb 2019 07:15:24 GMT
+      Expires:
+      - Sat, 16 Feb 2019 07:30:24 GMT
+      Ratelimit-Limit:
+      - '50'
+      Ratelimit-Remaining:
+      - '5'
+      User-Agent:
+      - Faraday v0.15.4
+      Vary:
+      - Accept-Encoding
+      X-Forwarded-For:
+      - 73.229.129.81
+      X-Forwarded-Port:
+      - '80'
+      X-Forwarded-Proto:
+      - http
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"LocalObservationDateTime":"2019-02-16T00:11:00-07:00","EpochTime":1550301060,"WeatherText":"Clear","WeatherIcon":33,"HasPrecipitation":false,"PrecipitationType":null,"IsDayTime":false,"Temperature":{"Metric":{"Value":-2.8,"Unit":"C","UnitType":17},"Imperial":{"Value":27.0,"Unit":"F","UnitType":18}},"MobileLink":"http://m.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us","Link":"http://www.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us"}]'
+    http_version: 
+  recorded_at: Sat, 16 Feb 2019 07:15:24 GMT
+recorded_with: VCR 4.0.0
