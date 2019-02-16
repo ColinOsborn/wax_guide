@@ -10,6 +10,21 @@ class WeatherService
         parse(response)
     end
 
+    def get_city_search(query)
+        response = @connection.get("/locations/v1/cities/#{query}?apikey=jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx")
+        parse(response)
+    end
+
+    def get_single_day_forecast(location_id)
+        response = @connection.get("/forecasts/v1/daily/1day/#{location_id}?apikey=jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx")
+        parse(response)
+    end     
+
+    def get_single_hourly_forecast(location_id)
+        response = @connection.get("/forecasts/v1/hourly/1hour/#{location_id}?apikey=jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx")
+        parse(response)
+    end     
+
     def parse(response)
         JSON.parse(response.body)
     end
