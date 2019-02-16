@@ -10,8 +10,8 @@ class WeatherService
         parse(response)
     end
 
-    def get_city_search(query)
-        response = @connection.get("/locations/v1/cities/#{query}?apikey=jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx")
+    def get_postal_code_search(zip)
+        response = @connection.get("/locations/v1/postalcodes/search?apikey=jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx&q=#{zip}")
         parse(response)
     end
 
