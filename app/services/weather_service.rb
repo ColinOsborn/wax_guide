@@ -1,4 +1,5 @@
 class WeatherService
+     attr_reader :connection
 
     def initialize
         @connection = Faraday.new("http://dataservice.accuweather.com")
@@ -25,8 +26,11 @@ class WeatherService
         parse(response)
     end     
 
+    private
+
     def parse(response)
         JSON.parse(response.body)
+        # array = JSON.parse(response.body).map { |hash|  Hash.new(hash) }
     end
 
 end
