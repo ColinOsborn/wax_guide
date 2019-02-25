@@ -11,7 +11,7 @@ class Location
     # end
 
     def self.find(zipcode)
-        Location.new(service.get_postal_code_search(zipcode))
+        service.get_postal_code_search(zipcode)
     end
 
 end
