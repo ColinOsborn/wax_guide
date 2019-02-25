@@ -1,11 +1,11 @@
 class SearchController < ApplicationController
   
     def index
-        @location = Location.all(params[:q])
+        @location = Location.find(params[:q])
+    end
 
-        # @total = Store.total(params[:q])
-        # # @stores = Store.all(params[:q])["stores"]
-        # @stores = Store.all(params[:q])
+    def show
+        @location = Location.find(params[:q])
     end
 
 end

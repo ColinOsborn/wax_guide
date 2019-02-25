@@ -3,16 +3,13 @@
         <h1>Wax Guide</h1>
     </div>
 
-    <form class="Search" role="search">
 
-
-        <%= form_tag(search_path, :method => "GET") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Location Search", class: "form-control text-center" %>
-              <%= submit_tag "Search", class:"btn btn-default" %>
-        <% end %>
-
-        </form>
-
+    <%= form_tag :search, method: :get, class: "form-inline" do %>
+        <div class="form-group search-field">
+          <%= text_field_tag :q, "Location Search", class: "form-control" %>
+          <%= submit_tag "Locate", class: "btn btn-primary" %>
+        </div>
+    <% end %>
 </div>
 
        
