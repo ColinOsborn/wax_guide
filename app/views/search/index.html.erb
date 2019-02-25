@@ -1,5 +1,10 @@
 <div class="container-fluid">
-  <%# <h1><%= @location.first['EnglishName'] %> </h1>
-  <p><%= @location.first['EnglishName'] %>, <%= @location.first['AdministrativeArea']['ID'] %> </p>
+  <h1><%= @location.first['EnglishName'] %>, <%= @location.first['AdministrativeArea']['ID'] %></h1>
 
+    <p>Latitude: <%= @location.first["GeoPosition"]["Latitude"] %>, Longitude: <%= @location.first["GeoPosition"]["Longitude"]%> </p>
+    <br>
+    <p>Elevation(meters): <%= @location.first["GeoPosition"]["Elevation"]["Metric"]["Value"] %> </p>
+    <p>Elevation(feet): <%= @location.first["GeoPosition"]["Elevation"]["Imperial"]["Value"] %> </p>
+
+    <button class="btn btn-primary"><%= link_to "Hourly Forecast", locations_path %></button>
 </div>
