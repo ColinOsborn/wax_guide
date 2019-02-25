@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <h1><%= @total %> total stores </h1>
+
+  <% @stores.each do |store| %>
+  <p>
+    <%= link_to store.longName, store_path(store.storeId) %><br>
+    <%= store.city %><br>
+    <%= store.distance %><br>
+    <%= store.phone %><br>
+    <%= store.storeType %><br>
+  </p>
+  <% end %>
+</div>
