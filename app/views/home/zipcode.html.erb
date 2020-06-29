@@ -1,0 +1,23 @@
+<div class="jumbotron container text-center">
+    <h1 class="display-4">WaxGuide Recomendation:</h1>
+    <p class="lead">This is the current ozone air quality, or AQI read out for my location: <%= @output.first["LocalizedName"] %>, <%= @output.first["AdministrativeArea"]["ID"] %></p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="/" role="button">Reload</a>
+
+    <ul>
+        <li>Location Name: <%= @output.first["LocalizedName"] %>, <%= @output.first["AdministrativeArea"]["ID"] %></li>
+        <li>Postal Code: <%= @output.first["PrimaryPostalCode"] %></li>
+        <li>Location Key: <%= @output.first["Key"] %></li>
+    </ul>
+    <p>Is this location correct? If so, hit button below</p>
+
+    <%= form_tag location_path, :method => 'POST' do %>
+    <div class="form-inline my-2 my-lg-0">
+      <%= text_field_tag 'location', nil, :value => @output.first["Key"], class: "form-control mr-sm-2" %>
+      <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+    <% end %>
+
+    <hr class="my-4">
+</div>
+
+
