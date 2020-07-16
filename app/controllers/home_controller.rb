@@ -8,7 +8,8 @@ class HomeController < ApplicationController
     def zipcode 
         @zip_query = params[:zipcode]
         api_key = Rails.application.credentials.api_key
-        @url = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=#{api_key}&q=#{@zip_query}"
+        key = "jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx"
+        @url = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=#{key}&q=#{@zip_query}"
         @uri = URI(@url)
         @response = Net::HTTP.get(@uri)
         @output = JSON.parse(@response)
@@ -17,7 +18,8 @@ class HomeController < ApplicationController
     def location
         @location_query = params[:location]
         api_key = Rails.application.credentials.api_key
-        @url = "http://dataservice.accuweather.com/currentconditions/v1/#{@location_query}?apikey=#{api_key}"
+        key = "jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx"
+        @url = "http://dataservice.accuweather.com/currentconditions/v1/#{@location_query}?apikey=#{key}"
         @uri = URI(@url)
         @response = Net::HTTP.get(@uri)
         @output = JSON.parse(@response)
