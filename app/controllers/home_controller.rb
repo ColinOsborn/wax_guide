@@ -8,11 +8,7 @@ class HomeController < ApplicationController
     def zipcode 
         @zip_query = params[:zipcode]
         api_key = Rails.application.credentials.api_key
-        key = "jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx"
-        @url = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=#{key}&q=#{@zip_query}"
-        @uri = URI(@url)
-        @response = Net::HTTP.get(@uri)
-        @output = JSON.parse(@response)
+        @output = Weather.service.get_postal_code_search(@zip_query)
     end
 
     def location
