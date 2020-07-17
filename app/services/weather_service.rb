@@ -24,7 +24,25 @@ class WeatherService
     def get_single_hourly_forecast(location_id)
         response = @connection.get("/forecasts/v1/hourly/1hour/#{location_id}?apikey=#{@api_key}")
         parse(response)
-    end     
+    end
+    
+    def get_geoposition_search(lat, long)
+        # Still need to run in postman for testing
+        response = @connection.get("/locations/v1/cities/geoposition/search?apikey=#{@api_key}")
+        parse(response)
+    end
+
+    def get_autocomplete_search(location)
+        # Still need to run in postman for testing
+        response = @connection.get("/locations/v1/cities/autocomplete?apikey=#{@api_key}")
+        parse(response)
+    end
+
+    def get_ip_address_search(ipaddress)
+        # Need substantional testing to see if this works
+        response = @connection.get("/locations/v1/cities/#{ipaddress}?apikey=#{@api_key}")
+        parse(response)
+    end
 
     def parse(response)
         JSON.parse(response.body)
