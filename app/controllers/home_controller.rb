@@ -14,11 +14,11 @@ class HomeController < ApplicationController
     def location
         @location_query = params[:location]
         api_key = Rails.application.credentials.api_key
-        key = "jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx"
-        @url = "http://dataservice.accuweather.com/currentconditions/v1/#{@location_query}?apikey=#{key}"
-        @uri = URI(@url)
-        @response = Net::HTTP.get(@uri)
-        @output = JSON.parse(@response)
+        # @output = Weather.service.
+        # @url = "http://dataservice.accuweather.com/currentconditions/v1/#{@location_query}?apikey=#{key}"
+        # @uri = URI(@url)
+        # @response = Net::HTTP.get(@uri)
+        # @output = JSON.parse(@response)
 
         temp = @output.first["Temperature"]["Imperial"]["Value"]
         case temp
