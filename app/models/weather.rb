@@ -4,14 +4,41 @@ class Weather < OpenStruct
         @@service ||= WeatherService.new
     end
 
-    def self.description(temp)
-        case temp
-        when -22..18
+    def self.description(temperature, conditions)
+        temp = toko_temp_range(temperature)
+        condition = conditions_parse(conditions)
+
+        if "Blue" && "Sunny"
             "Toko Blue"
-        when 19..28
-             "Toko Red. If snow has fallen in the past 2-3 days and temps looking to dropping, consider mixing Toko Blue."
+        elsif "Blue/Red" && "Snow"
+            "Toko Blue. When snow is present, it's extra cold and coarse."
+        elsif "Blue/Red" && "Sunny"
+            "Toko Red. If things stay sunny. Red only, if temps start dropping, consider mixing some Toko Blue 50-50"
+        elsif "Red" && "Sunny"
+            "Toko Red"
+        elsif "Red" && "Snow"
+            "Toko Red"
+        elsif "Yellow" && "Sunny"
+            "Toko Yellow"
+        elsif "Red/Yellow" && "Snow"
+            "Toko Yellow. If temps start dropping or cold snow, mix with Toko Red"
+        elsif nil || nil
+            "An Error occured"
+        end
+    end
+
+    def self.toko_temp_range(temp)
+        case temp
+        when -22..10
+            "Blue"
+        when 11..18
+            "Blue/Red"
+        when 19..24
+             "Red"
+        when 25..29
+            "Red/Yellow"
         when 29..100
-            "Toko Yellow. The range for the yellow wax goes from 25F on up. If it's a hot day and been a while since it's snowed, Yellow is the way to go."
+            "Yellow"
         else
             "Error, Please try me again"
         end
