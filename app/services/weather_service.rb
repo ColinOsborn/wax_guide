@@ -12,7 +12,7 @@ class WeatherService
     end
 
     def get_postal_code_search(zip_query)
-        response = @connection.get("/locations/v1/postalcodes/search?apikey=#{@api_key}=#{zip_query}")
+        response = @connection.get("/locations/v1/postalcodes/search?apikey=#{@api_key}&q=#{zip_query}")
         parse(response)
     end
 

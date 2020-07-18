@@ -2,12 +2,11 @@
     <h1 class="display-4">WaxGuide Recomendation</h1>
     <p class="lead">The current temperature is: <%= @output.first["Temperature"]["Metric"]["Value"] %> C or <%= @output.first["Temperature"]["Imperial"]["Value"] %> F</p>
     <p class="lead">Current weather conditions: <%= @output.first["WeatherText"] %> </p>
-    <p class="lead">Local Time: <%= @output.first["LocalObservationDateTime"] %> </p>
     <% if @output.first["PrecipitationType"] == true %>
         <%= @output.first["PrecipitationType"] && @output.first["HasPrecipitation"] %>
     <% end %>
     <hr class="my-4">
-        The best wax for your conditions is: <%= @toko_description %>
+        The best wax for your conditions is: <%= Weather.temp(@output.first["Temperature"]["Imperial"]["Value"]) %>
     <hr class="my-4">
 
 </div>
