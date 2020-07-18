@@ -39,6 +39,10 @@ li.tips {
     background-color: #FFDE00;
 }
 
+.cloudy {
+    background-image: url(asset_path("font_awesome/cloud-solid.svg"));
+}
+
 @media only screen and (max-width: 450px) {
     .btn.btn-outline-success.my-2.my-sm-0 {
         position: relative;

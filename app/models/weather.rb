@@ -4,7 +4,7 @@ class Weather < OpenStruct
         @@service ||= WeatherService.new
     end
 
-    def self.temp(temp)
+    def self.description(temp)
 
         case temp
         when -22..18
@@ -16,6 +16,57 @@ class Weather < OpenStruct
         else
             "Error, Please try me again"
         end
+    end
+
+    def self.color(temp)
+        case temp
+        when -22..18
+            "blue"
+        when 19..28
+            "red"
+        when 29..100
+            "yellow"
+        else
+            " "
+        end
+    end
+
+    def self.swix_description(temp)
+        case temp
+        when -25..10
+            "CH4 Green"
+        when 11..15
+            "CH5 Turquoise"
+        when 15..23
+            "CH6 Blue"
+        when 24..31
+            "CH7 Violet"
+        when 32..50
+            "CH10 Yellow"
+        else
+            "please refresh data"
+        end
+    end
+
+    def self.swix_color(temp)
+           case temp
+        when -25..10
+            "green"
+        when 11..15
+            "turquoise"
+        when 15..23
+            "blue"
+        when 24..31
+            "violet" 
+        when 32..50
+            "yellow"
+        else
+            "please refresh data"
+        end
+    end
+
+    def self.weather_text(condition)
+        # this will grab weather icon number and then render the correct SCSS class  
     end
 
 
