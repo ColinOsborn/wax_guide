@@ -84,7 +84,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if Rails.env.production?
-    Rails.application.credentials.api_key = jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx
+    ENV["API_KEY"] = 'jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx'
   end
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
