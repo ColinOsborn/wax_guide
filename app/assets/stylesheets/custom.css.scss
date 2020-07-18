@@ -12,7 +12,11 @@ p, li {
 body {
     background-image: url(asset_path("simon-berger-unsplash.jpg"));
     background-size: cover;
-    background-repeat: no-repeat;
+    // background-repeat: no-repeat;
+}
+
+#zipcode {
+    text-align: center;
 }
 
 li {
@@ -35,3 +39,16 @@ li.tips {
     background-color: #FFDE00;
 }
 
+@media only screen and (max-width: 450px) {
+    .btn.btn-outline-success.my-2.my-sm-0 {
+        position: relative;
+        text-align: center;
+        left: 159px;
+    }
+
+    .navbar-brand {
+    text-align: center;
+    position: relative;
+    left: 150px;
+    }
+}
