@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Weather, type: :model do
   it "provides correct wax (toko) description" do
-    blue = 12
+    # blue = 12
     red = 22
     yellow = 32
 
-    cold = Weather.description(blue)
+    cold = Weather.description(12)
     med = Weather.description(red)
     warm = Weather.description(yellow)
     
@@ -47,6 +47,16 @@ RSpec.describe Weather, type: :model do
     expect(cold).to eq("CH6 Blue")
     expect(slight_cold).to eq("CH7 Violet")
     expect(warm).to eq("CH10 Yellow")
+  end
+
+  it "parses weather text and conditions" do
+    most = Weather.conditions_parse("Mostly Clear")
+    some_snow = Weather.conditions_parse("Mostly Cloudy w/ Snow")
+    some_sun = Weather.conditions_parse("Partly Sunny")
+
+    expect(most).to eq("Clear")
+    expect(some_snow).to eq("Snow")
+    expect(some_sun).to eq("Sunny")
   end
 end
 
