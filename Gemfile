@@ -6,6 +6,7 @@ ruby '2.5.0'
 gem 'json', '~> 1.8', '>= 1.8.3'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
+gem 'font-awesome-sass'
 gem 'jquery-rails'
 gem 'uglifier', '>= 1.3.0'
 gem "websocket-extensions", ">= 0.1.5"
