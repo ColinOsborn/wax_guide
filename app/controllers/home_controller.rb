@@ -6,7 +6,6 @@ class HomeController < ApplicationController
 
     def zipcode 
         @zip_query = params[:zipcode]
-        api_key = Rails.application.credentials.api_key
         @output = Weather.service.get_postal_code_search(@zip_query)
     end
 
