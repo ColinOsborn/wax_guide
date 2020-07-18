@@ -5,7 +5,6 @@ class Weather < OpenStruct
     end
 
     def self.description(temp)
-
         case temp
         when -22..18
             "Toko Blue"
@@ -15,6 +14,21 @@ class Weather < OpenStruct
             "Toko Yellow. The range for the yellow wax goes from 25F on up. If it's a hot day and been a while since it's snowed, Yellow is the way to go."
         else
             "Error, Please try me again"
+        end
+    end
+
+    def self.conditions_parse(conditions)
+        clean = conditions.downcase
+        if clean.include?("snow") == true
+            "Snow"
+        elsif clean.include?("clear") == true
+            "Clear"
+        elsif clean.include?("rain") == true
+            "Rain"
+        elsif clean.include?("sunny") == true
+            "Sunny"
+        else
+            "No Data"
         end
     end
 
