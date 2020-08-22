@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Weather, type: :model do
-  it "provides correct wax (toko) description" do
+#   it "provides correct wax (toko) description" do
 
-    cold = Weather.description(12, "Sunny")
+    # cold = Weather.description(12, "Sunny")
     # med = Weather.description(red)
     # warm = Weather.description(yellow)
     
-    expect(cold).to eq("Toko Blue")
+    # expect(cold).to eq("Toko Blue")
     # expect(med).to eq("Toko Red. If snow has fallen in the past 2-3 days and temps looking to dropping, consider mixing Toko Blue.")
     # expect(warm).to eq("Toko Yellow. The range for the yellow wax goes from 25F on up. If it's a hot day and been a while since it's snowed, Yellow is the way to go.")
-  end
+#   end
 
   it "provides correct wax (toko) color" do
     blue = 12
@@ -50,10 +50,18 @@ RSpec.describe Weather, type: :model do
     most = Weather.conditions_parse("Mostly Clear")
     some_snow = Weather.conditions_parse("Mostly Cloudy w/ Snow")
     some_sun = Weather.conditions_parse("Partly Sunny")
+    int_clouds = Weather.conditions_parse("Intermittent Clouds")
+    hazy = Weather.conditions_parse("Hazy Sunshine")
+    mostly_cloudy = Weather.conditions_parse("Mostly Cloudy")
+    dreary = Weather.conditions_parse("Dreary (Overcast)")
 
     expect(most).to eq("Clear")
     expect(some_snow).to eq("Snow")
     expect(some_sun).to eq("Sunny")
+    expect(int_clouds).to eq("Cloudy")
+    expect(hazy).to eq("Sunny") #come back to this one
+    expect(mostly_cloudy).to eq("Cloudy")
+    expect(dreary).to eq("Cloudy")
   end
 end
 
