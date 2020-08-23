@@ -6,7 +6,7 @@
     <div class="container text-center">
         <%= form_tag zipcode_path, :method => 'POST' do %>
         <div class="form-group">
-            <%= text_field_tag 'zipcode', nil, placeholder: "Search Zipcode", class: "form-group" %>
+            <%= text_field_tag 'zipcode', nil, placeholder: "Location Name", class: "form-group" %>
             <%= submit_tag "Search", class: "btn btn-outline-success" %>
         <% end %>
     </div>

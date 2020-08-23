@@ -3,6 +3,7 @@ class WeatherService
     def initialize
         @connection = Faraday.new("http://dataservice.accuweather.com")
         @api_key = ENV["API_KEY"]
+        # @api_key = Rails.application.credentials.api_key //local only
         @connection.headers["Authorization"] = "Bearer #{@api_key}"
     end
 
@@ -34,7 +35,7 @@ class WeatherService
 
     def get_autocomplete_search(location)
         # Still need to run in postman for testing
-        response = @connection.get("/locations/v1/cities/autocomplete?apikey=#{@api_key}")
+        response = @connection.get("/locations/v1/cities/autocomplete?apikey=#{@api_key}&q=#{location}")
         parse(response)
     end
 
@@ -46,6 +47,7 @@ class WeatherService
 
     def parse(response)
         JSON.parse(response.body)
+        # JSON.parse(response.body) if response && response.length >= 2
     end
 
 end
