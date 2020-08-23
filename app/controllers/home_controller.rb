@@ -5,8 +5,11 @@ class HomeController < ApplicationController
 
     def zipcode 
         @zip_query = params[:zipcode]
-        # @output = Weather.service.get_postal_code_search(@zip_query)
-        @output = Weather.service.get_autocomplete_search(@zip_query)
+        if @zip_query == nil
+            flash[:danger] = "Not Valid, please try again"
+        else
+            @output = Weather.service.get_autocomplete_search(@zip_query)
+        end
     end
 
     def location

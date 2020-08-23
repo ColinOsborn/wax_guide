@@ -7,29 +7,16 @@
                <li> Location Name: <%=  location["LocalizedName"] %>
                <li> Country: <%= location["Country"]["ID"] %>
                <li> Country: <%= location["AdministrativeArea"]["ID"] %>, <%= location["AdministrativeArea"]["LocalizedName"] %>
-               <li> Location Key: <%=  location["Key"] %>
                  <%= form_tag location_path, :method => 'POST' do %>
-                <div class="form-group">
-                    <%# <%= text_field_tag 'location', nil, :value => location["Key"], class: "form-group" %> 
-                    <%= hidden_field 'location', nil, :value => location["Key"], class: "form-group" %>                    
-                    <%= submit_tag "Search This Location", class: "btn btn-success" %> 
-                        <% end %>
-                    <% end %>
-            <%# <li> Zip/Postal Code: <%=  @output.first["PrimaryPostalCode"] %> %>
-            <%# <li> Continent: <%=  @output.first["Region"]["EnglishName"]  %> %>
-            <%# <li> Region abv: <%=  @output.first["AdministrativeArea"]["ID"] %> %>
-            <%# <li> State/Region: <%=  @output.first["AdministrativeArea"]["LocalizedName"] %> %>
-            <%# <li> Time Zone Region: <%=  @output.first["TimeZone"]["Name"] %> %>
-            <%# <li> Currently in Daylight Savings: <%=  @output.first["TimeZone"]["IsDaylightSaving"] %> %>
-            <%# <li> Latitude: <%=  @output.first["GeoPosition"]["Latitude"] %> %>
-            <%# <li> Longitude: <%=  @output.first["GeoPosition"]["Longitude"] %> %>
-            <%# <li> Elevation(meters): <%=  @output.first["GeoPosition"]["Elevation"]["Metric"]["Value"] %> %>
-            <%# <li> Elevation(feet): <%=  @output.first["GeoPosition"]["Elevation"]["Imperial"]["Value"] %> %>
+                    <div class="form-group">
+                        <%= hidden_field 'location', nil, :value => location["Key"], class: "form-group" %>                    
+                        <%= submit_tag "Search This Location", class: "btn btn-success" %> 
+                            <% end %>
+                <% end %>
         </ul>
     </div>
 
     <hr class="my-4">
-
 
 </div>
 
