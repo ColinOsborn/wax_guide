@@ -1,3 +1,4 @@
+<div class="jumbotron container text-center">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -20,15 +21,6 @@
   <%= @user.last_name %>
 </p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
-
-<p>
-  <strong>Password confirmation:</strong>
-  <%= @user.password_confirmation %>
-</p>
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+</div>
