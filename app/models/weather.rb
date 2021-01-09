@@ -5,8 +5,31 @@ class Weather < OpenStruct
     @@service ||= WeatherService.new
   end
 
+  def self.output_parse(input)
+    input.first
+  end
+
+  def self.metric(input)
+    parse = output_parse(input)
+    temp = parse["Temperature"]["Metric"]["Value"]
+    temp.nil? ? "Error" : temp
+  end
+
+  def self.imperial(input)
+    parse = output_parse(input)
+    temp = parse["Temperature"]["Imperial"]["Value"]
+    temp.nil? ? "Error" : temp
+  end
+
+  def self.precipitation(input)
+    precip = output_parse(input)
+    precip["PrecipitationType"]
+    # Still needs a test
+  end
+
   def self.description(temperature, conditions)
-    temp = toko_temp_range(temperature)
+    parsed_temp = imperial(temperature)
+    temp = toko_temp_range(parsed_temp)
     condition = conditions_parse(conditions)
 
     if "Blue" && "Sunny"
@@ -46,6 +69,7 @@ class Weather < OpenStruct
   end
 
   def self.conditions_parse(text)
+    weather = output_parse(text)
         #windy? 
         # conditions_hash = 
         #    "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", "Partly Sunny w/ T-Storms", "Rain", "Flurries", "Mostly Cloudy w/ Flurries", "Partly Sunny w/ Flurries", "Sleet", "Freezing Rain", "Mostly Cloudy w/ Flurries", "Mostly Cloudy w/ T-Storms", "Partly Cloudy w/ T-Storms", "Mostly Cloudy w/ Showers", "Partly Cloudy w/ Showers", "Mostly Cloudy"],
@@ -99,12 +123,13 @@ class Weather < OpenStruct
     }
 
     parsed_conditions = conditions_hash.select do |key, value|
-      return value if key == text
+      return value if key == weather
     end
     parsed_conditions
   end
 
-  def self.color(temp)
+  def self.color(input)
+    temp = imperial(input)
     case temp
     when -22..18
       "blue"
