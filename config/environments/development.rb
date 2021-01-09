@@ -59,6 +59,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   if !Rails.env.development? && !Rails.env.test?
-        ENV["API_KEY"] = 'jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx'
   end
 end

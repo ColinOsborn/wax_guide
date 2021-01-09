@@ -1,22 +1,20 @@
 <div class="jumbotron container text-center">
-    <h1 class="display-4">Location Search</h1>
-    <hr class="my-4">
+  <h1 class="display-4">Location Search</h1>
+  <hr class="my-4">
     <div class="container text-center">
-        <ul class="location-list">
-               <% @output.each do |location| %>
-               <li> Location Name: <%=  location["LocalizedName"] %></li>
-               <li> Country: <%= location["AdministrativeArea"]["ID"] %>, <%= location["AdministrativeArea"]["LocalizedName"] %></li>
-                 <%= form_tag location_path, :method => 'POST' do %>
-                    <div class="form-group">
-                        <%= hidden_field 'location', nil, :value => location["Key"], class: "form-group" %>                    
-                        <%= submit_tag "Search This Location", class: "btn btn-success location-search" %> 
-                            <% end %>
-                <hr class="my-4">
-                <% end %>
-        </ul>
+      <ul class="location-list">
+        <% @output.each do |location| %>
+          <li> Location Name: <%=  location["LocalizedName"] %></li>
+            <li> Country: <%= location["AdministrativeArea"]["ID"] %>, <%= location["AdministrativeArea"]["LocalizedName"] %></li>
+              <%= form_tag location_path, :method => 'POST' do %>
+                <div class="form-group">
+                  <%= hidden_field 'location', nil, :value => location["Key"], class: "form-group" %>                    
+                  <%= submit_tag "Search This Location", class: "btn btn-success location-search" %> 
+                    <% end %>
+              <hr class="my-4">
+            <% end %>
+      </ul>
         <br>
     </div>
     <hr class="my-4">
 </div>
-
-
