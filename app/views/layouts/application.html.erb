@@ -4,6 +4,8 @@
     <title>Wax Guide</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <!-- application.html.erb in Head tag below turbolinks -->
+    <%= javascript_pack_tag 'application' %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -13,10 +15,10 @@
     <%= render 'layouts/header' %>
     <br>
     <div class="col-md-12">
-          <% flash.each do|key, message| %>
-            <div class="text-center alert alert-<%= key == 'notice'? 'success': 'danger' %>">
-              <%= message %>
-              <% end %>
+      <% flash.each do|key, message| %>
+        <div class="text-center alert alert-<%= key == 'notice'? 'success': 'danger' %>">
+          <%= message %>
+        <% end %>
     <%= yield %>
   </body>
 </html>
