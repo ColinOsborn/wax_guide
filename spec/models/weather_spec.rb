@@ -1,13 +1,73 @@
 require 'rails_helper'
 
 RSpec.describe Weather, type: :model do
+  context 'cleaning the api data so it no longer parses in the frontend' do
+    it 'parses the api dump to remove logic from views' do
+      data = [{"LocalObservationDateTime"=>"2021-01-08T22:10:00-07:00",
+             "EpochTime"=>1610169000, "WeatherText"=>"Partly cloudy",
+             "WeatherIcon"=>35, "HasPrecipitation"=>false,
+             "PrecipitationType"=>nil, "IsDayTime"=>false,
+             "Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17},
+             "Imperial"=>{"Value"=>19.0, "Unit"=>"F", "UnitType"=>18}},
+             "MobileLink"=>"http://m.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us",
+             "Link"=>"http://www.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us"}]
+      
+      better = {"LocalObservationDateTime"=>"2021-01-08T22:10:00-07:00", "EpochTime"=>1610169000, 
+              "WeatherText"=>"Partly cloudy", "WeatherIcon"=>35, "HasPrecipitation"=>false, 
+              "PrecipitationType"=>nil, "IsDayTime"=>false, 
+              "Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17}, 
+              "Imperial"=>{"Value"=>19.0, "Unit"=>"F", "UnitType"=>18}}, 
+              "MobileLink"=>"http://m.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us", 
+              "Link"=>"http://www.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us"}
+
+      clean = Weather.output_parse(data)
+      expect(clean).to eq(better)
+    end
+
+    it 'cleans the metric temperature data' do
+      data = {"LocalObservationDateTime"=>"2021-01-08T22:20:00-07:00", "EpochTime"=>1610169600, 
+              "WeatherText"=>"Partly cloudy", "WeatherIcon"=>35, "HasPrecipitation"=>false, 
+              "PrecipitationType"=>nil, "IsDayTime"=>false, 
+              "Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17}, 
+              "Imperial"=>{"Value"=>19.0, "Unit"=>"F", "UnitType"=>18}}, 
+              "MobileLink"=>"http://m.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us", 
+              "Link"=>"http://www.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us"}
+
+      celsius = Weather.metric(data)
+      expect(celsius).to eq(-7.2)
+    end
+
+    it 'returns an error instead of breaking' do
+      data = {"Temperature"=>{"Metric"=>{"Value"=>nil, "Unit"=>"C", "UnitType"=>17}}}
+      
+      error = Weather.metric(data)
+      expect(error).to eq("Error")
+    end
+
+    it 'cleans the imperial temperature data' do
+      data = {"Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17}, 
+              "Imperial"=>{"Value"=>19.0, "Unit"=>"F", "UnitType"=>18}}}
+      
+      farenheit = Weather.imperial(data)
+      expect(farenheit).to eq(19)
+    end
+
+    it 'returns and error instead of breaking' do
+      data = {"Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17}, 
+              "Imperial"=>{"Value"=>nil, "Unit"=>"F", "UnitType"=>18}}}
+      
+      error = Weather.imperial(data)
+      expect(error).to eq("Error")
+    end
+  end
+
   it 'provides correct wax (toko) description' do
-    # true_blue = Weather.description(12, 'Sunny')
-    not_red_blue = Weather.description(17, 'Snow')
+    true_blue = Weather.description(12, 'Sunny')
+    # not_red_blue = Weather.description(17, 'Snow')
     # warm = Weather.description(yellow)
 
-    # expect(true_blue).to eq("Toko Blue")
-    expect(not_red_blue).to eq("Toko Blue. When new snow is present, it's extra cold and coarse.")
+    expect(true_blue).to eq("Toko Blue")
+    # expect(not_red_blue).to eq("Toko Blue. When new snow is present, it's extra cold and coarse.")
     # expect(warm).to eq("Toko Yellow. The range for the yellow wax goes from 25F on up. If it's a hot day and been a while since it's snowed, Yellow is the way to go.")
   end
 
