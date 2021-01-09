@@ -47,7 +47,6 @@ class WeatherService
 
     def parse(response)
         JSON.parse(response.body)
-        # JSON.parse(response.body) if response && response.length >= 2
     end
 
 end
