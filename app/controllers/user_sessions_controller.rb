@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-    before_filter :zero_users_or_authenticated, only: [:new, :create]
+    before_action :zero_users_or_authenticated, only: [:new, :create]
 
     def zero_users_or_authenticated
         unless User.count == 0 || current_user

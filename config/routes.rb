@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   resources :users
   resources :user_sessions, only: [:new, :create, :destroy]
 
+  resources :users do
+    resources :skis
+  end
+
+  resource :dashboard, only: [:show]
+
   get 'login' => 'user_sessions#new'
   get 'logout' => 'user_sessions#destroy'
 
