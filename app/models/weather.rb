@@ -1,36 +1,35 @@
 class Weather < OpenStruct
     require 'pry'
 
-
     def self.service
-        @@service ||= WeatherService.new
+      @@service ||= WeatherService.new
     end
 
     def self.description(temperature, conditions)
-        temp = toko_temp_range(temperature)
-        condition = conditions_parse(conditions)
+      temp = toko_temp_range(temperature)
+      condition = conditions_parse(conditions)
 
-        if "Blue" && "Sunny"
-            "Toko Blue"
-        elsif "Blue/Red" && "Snow"
-            "Toko Blue. When snow is present, it's extra cold and coarse."
-        elsif "Blue/Red" && "Sunny"
-            "Toko Red. If things stay sunny. Red only, if temps start dropping, consider mixing some Toko Blue 50-50"
-        elsif "Red" && "Sunny"
-            "Toko Red"
-        elsif "Red" && "Snow"
-            "Toko Red"
-        elsif "Yellow" && "Sunny"
-            "Toko Yellow"
-        elsif "Red/Yellow" && "Snow"
-            "Toko Yellow. If temps start dropping or cold snow, mix with Toko Red"
-        elsif nil || nil
-            "An Error occured"
-        end
+      if "Blue" && "Sunny"
+        "Toko Blue"
+      elsif "Blue/Red" && "Snow"
+        "Toko Blue. When new snow is present, it's extra cold and coarse."
+      elsif "Blue/Red" && "Sunny"
+        "Toko Red. If things stay sunny. Red only, if temps start dropping, consider mixing some Toko Blue 50-50"
+      elsif "Red" && "Sunny"
+        "Toko Red"
+      elsif "Red" && "Snow"
+        "Toko Red"
+      elsif "Yellow" && "Sunny"
+        "Toko Yellow"
+      elsif "Red/Yellow" && "Snow"
+        "Toko Yellow. If temps start dropping or cold snow, mix with Toko Red"
+      else nil || nil
+        "An Error occured"
+      end
     end
 
     def self.toko_temp_range(temp)
-        case temp
+      case temp
         when -22..10
             "Blue"
         when 11..18
@@ -49,17 +48,15 @@ class Weather < OpenStruct
     def self.conditions_parse(text)
 
         #windy? 
-        conditions_hash = {
-           "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", "Partly Sunny w/ T-Storms", "Rain", "Flurries", "Mostly Cloudy w/ Flurries", "Partly Sunny w/ Flurries", "Sleet", "Freezing Rain", "Mostly Cloudy w/ Flurries", "Mostly Cloudy w/ T-Storms", "Partly Cloudy w/ T-Storms", "Mostly Cloudy w/ Showers", "Partly Cloudy w/ Showers", "Mostly Cloudy"],
-           "Snow" => ["Snow", "Mostly Cloudy w/ Snow", "Ice", "Rain and Snow", "Mostly Cloudy w/ Snow", "Mostly Cloudy w/ Flurries"],
-           "Cloudy" => ["Intermittent Clouds", "Mostly Cloudy", "Cloudy", "Dreary (Overcast)", "Fog", "Partly Cloudy", "Intermittent Clouds"],
-           "Clear" => ["Clear", "Mostly Clear"],
-           "Sunny" => ["Sunny", "Mostly Sunny", "Partly Sunny", "Hazy Sunshine"],
-           "Hot" => ["Hot"],
-           "Cold" => ["Cold"],
-        }
-
-
+        # conditions_hash = 
+        #    "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", "Partly Sunny w/ T-Storms", "Rain", "Flurries", "Mostly Cloudy w/ Flurries", "Partly Sunny w/ Flurries", "Sleet", "Freezing Rain", "Mostly Cloudy w/ Flurries", "Mostly Cloudy w/ T-Storms", "Partly Cloudy w/ T-Storms", "Mostly Cloudy w/ Showers", "Partly Cloudy w/ Showers", "Mostly Cloudy"],
+        #    "Snow" => ["Snow", "Mostly Cloudy w/ Snow", "Ice", "Rain and Snow", "Mostly Cloudy w/ Snow", "Mostly Cloudy w/ Flurries"],
+        #    "Cloudy" => ["Intermittent Clouds", "Mostly Cloudy", "Cloudy", "Dreary (Overcast)", "Fog", "Partly Cloudy", "Intermittent Clouds"],
+        #    "Clear" => ["Clear", "Mostly Clear"],
+        #    "Sunny" => ["Sunny", "Mostly Sunny", "Partly Sunny", "Hazy Sunshine"],
+        #    "Hot" => ["Hot"],
+        #    "Cold" => ["Cold"],
+        # 
         conditions_hash = {
             "Showers" => "Rain", 
             "Mostly Cloudy w/ Showers" => "Rain", 
@@ -102,50 +99,14 @@ class Weather < OpenStruct
             "Cold" => "Cold",
         }
 	
-        # parsed_conditions = []
- 
-        # conditions_hash.each do |key, value|
-        #     value.each do |key2, value2|
-        #         parsed_conditions << key
-        #         byebug
-        #     end
-        # conditions_hash.each do |key, value|
-        #     value.select do |value2|
-        #         key if value == text
-        #     end
-        # end
-
-        conditions_hash.each do |key, value|
-            
-        end
-
-
-        # clean = conditions.downcase
-
-
-        # if clean.include?("snow") == true
-        #     "Snow"
-        # elsif clean.include?("clear") == true
-        #     "Clear"
-        # elsif clean.include?("rain") == true
-        #     "Rain"
-        # elsif clean.include?("sunny") == true
-        #     "Sunny"
-        # elsif clean.include?("cloudy") == true
-        #     "Cloudy"
-        # elsif clean.include?("clouds") == true
-        #     "Cloudy"
-        # elsif clean.include?("dreary") == true
-        #     "Cloudy"
-        # elsif clean.include?("sunshine") == true
-        #     "Sunny"
-        # else
-        #     "No Data"
-        # end
+      parsed_conditions = conditions_hash.select do |key, value|
+        return value if key == text
+      end
+     parsed_conditions
     end
 
     def self.color(temp)
-        case temp
+      case temp
         when -22..18
             "blue"
         when 19..28
@@ -158,7 +119,7 @@ class Weather < OpenStruct
     end
 
     def self.swix_description(temp)
-        case temp
+      case temp
         when -25..10
             "CH4 Green"
         when 11..15
@@ -171,11 +132,11 @@ class Weather < OpenStruct
             "CH10 Yellow"
         else
             "please refresh data"
-        end
+      end
     end
 
     def self.swix_color(temp)
-           case temp
+      case temp
         when -25..10
             "green"
         when 11..15
@@ -188,12 +149,11 @@ class Weather < OpenStruct
             "yellow"
         else
             "please refresh data"
-        end
+      end
     end
 
     def self.weather_text(condition)
         # this will grab weather icon number and then render the correct SCSS class  
     end
-
 
 end
