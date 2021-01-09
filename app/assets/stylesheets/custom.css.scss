@@ -2,65 +2,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Cardo&family=Oswald:wght@300&display=swap');
 
 h1 {
-    font-family: 'Oswald', sans-serif;
+  font-family: 'Oswald', sans-serif;
 }
 
 p, li { 
-    font-family: 'Cardo', serif;
+  font-family: 'Cardo', serif;
 }
 
 body {
-    background-image: url(asset_path("simon-berger-unsplash.jpg"));
-    background-size: cover;
-    // background-repeat: no-repeat;
+  background-image: url(asset_path("simon-berger-unsplash.jpg"));
+  background-size: cover;
 }
 
 #zipcode {
-    text-align: center;
+  text-align: center;
 }
 
 li {
-    text-align: center;
+  text-align: center;
 }
 
 li.tips {
-    text-align: left;
+  text-align: left;
 }
 
 .location-list {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .location-search {
-    margin: 10px;
+  margin: 10px;
 }
 
 .blue {
-    background-color: #1172B6;
+  background-color: #1172B6;
 }
 
 .red {
-    background-color: #D9052D;
+  background-color: #D9052D;
 }
 
 .yellow {
-    background-color: #FFDE00;
+  background-color: #FFDE00;
 }
 
 .cloudy {
-    background-image: url(asset_path("font_awesome/cloud-solid.svg"));
+  background-image: url(asset_path("font_awesome/cloud-solid.svg"));
 }
 
 @media only screen and (max-width: 450px) {
-    .btn.btn-outline-success.my-2.my-sm-0 {
-        position: relative;
-        text-align: center;
-        left: 159px;
-    }
-
-    .navbar-brand {
-    text-align: center;
+  .btn.btn-outline-success.my-2.my-sm-0 {
     position: relative;
-    left: 150px;
-    }
+    text-align: center;
+    left: 159px;
+  }
+  .navbar-brand {
+  text-align: center;
+  position: relative;
+  left: 150px;
+  }
 }

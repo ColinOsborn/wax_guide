@@ -1,12 +1,11 @@
 <div class="jumbotron container text-center <%= Weather.color(@output.first["Temperature"]["Imperial"]["Value"]) %>">
-    <h1 class="display-4">WaxGuide Recomendation</h1>
+  <h1 class="display-4">WaxGuide Recomendation</h1>
     <p class="lead">The current temperature is: <%= @output.first["Temperature"]["Metric"]["Value"] %> C or <%= @output.first["Temperature"]["Imperial"]["Value"] %> F</p>
     <p class="lead">Current weather conditions: <%= @output.first["WeatherText"] %> </p>
-    <% if @output.first["PrecipitationType"] == true %>
+      <% if @output.first["PrecipitationType"] == true %>
         <%= @output.first["PrecipitationType"] && @output.first["HasPrecipitation"] %>
-    <% end %>
+      <% end %>
     <hr class="my-4">
         The best wax for your conditions is: <%= Weather.description(@output.first["Temperature"]["Imperial"]["Value"]) %>
     <hr class="my-4">
-
 </div>
