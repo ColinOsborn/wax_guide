@@ -13,8 +13,11 @@ gem "websocket-extensions", ">= 0.1.5"
 gem "activesupport", ">= 5.2.4.3"
 gem "actionpack", ">= 5.2.4.3"
 gem 'sorcery'
+# React rails setup
+gem 'webpacker'
+gem 'react-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1', '>= 5.2.1.1'
+gem 'rails', '~>6.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
