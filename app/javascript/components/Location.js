@@ -5,10 +5,8 @@ class Location extends React.Component {
   render () {
     return (
       <React.Fragment>
-        Location Name: {this.props.locationName}
-        Area: {this.props.areaId}
-        Area Name: {this.props.areaName}
-        Location Key: {this.props.locationKey}
+        <li>Location Name: {this.props.locationName}</li>
+        <li>Country: {this.props.areaId}, {this.props.areaName}</li>
       </React.Fragment>
     );
   }
