@@ -5,19 +5,24 @@ class Weather < OpenStruct
     @@service ||= WeatherService.new
   end
 
+  def self.error_handling(input)
+    code = input.first
+    code.include?("Unauthorized")
+  end
+
   def self.output_parse(input)
     input.first
   end
 
   def self.metric(input)
-    parse = output_parse(input)
-    temp = parse["Temperature"]["Metric"]["Value"]
+    data = output_parse(input)
+    temp = data["Temperature"]["Metric"]["Value"]
     temp.nil? ? "Error" : temp
   end
 
   def self.imperial(input)
-    parse = output_parse(input)
-    temp = parse["Temperature"]["Imperial"]["Value"]
+    data = output_parse(input)
+    temp = data["Temperature"]["Imperial"]["Value"]
     temp.nil? ? "Error" : temp
   end
 
@@ -31,6 +36,7 @@ class Weather < OpenStruct
     parsed_temp = imperial(temperature)
     temp = toko_temp_range(parsed_temp)
     condition = conditions_parse(conditions)
+    initial = temp
 
     if "Blue" && "Sunny"
       "Toko Blue"
@@ -70,66 +76,29 @@ class Weather < OpenStruct
 
   def self.conditions_parse(text)
     weather = output_parse(text)
-        #windy? 
-        # conditions_hash = 
-        #    "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", "Partly Sunny w/ T-Storms", "Rain", "Flurries", "Mostly Cloudy w/ Flurries", "Partly Sunny w/ Flurries", "Sleet", "Freezing Rain", "Mostly Cloudy w/ Flurries", "Mostly Cloudy w/ T-Storms", "Partly Cloudy w/ T-Storms", "Mostly Cloudy w/ Showers", "Partly Cloudy w/ Showers", "Mostly Cloudy"],
-        #    "Snow" => ["Snow", "Mostly Cloudy w/ Snow", "Ice", "Rain and Snow", "Mostly Cloudy w/ Snow", "Mostly Cloudy w/ Flurries"],
-        #    "Cloudy" => ["Intermittent Clouds", "Mostly Cloudy", "Cloudy", "Dreary (Overcast)", "Fog", "Partly Cloudy", "Intermittent Clouds"],
-        #    "Clear" => ["Clear", "Mostly Clear"],
-        #    "Sunny" => ["Sunny", "Mostly Sunny", "Partly Sunny", "Hazy Sunshine"],
-        #    "Hot" => ["Hot"],
-        #    "Cold" => ["Cold"],
-        # 
+    data = weather["WeatherText"]
+
     conditions_hash = {
-      "Showers" => "Rain", 
-      "Mostly Cloudy w/ Showers" => "Rain", 
-      "Partly Sunny w/ Showers" => "Rain",
-      "T-Storms" => "Rain",
-      "Mostly Cloudy w/ T-Storms" => "Rain",
-      "Partly Sunny w/ T-Storms" => "Rain", 
-      "Rain" => "Rain",
-      "Flurries" => "Rain",
-      "Mostly Cloudy w/ Flurries" => "Rain",
-      "Partly Sunny w/ Flurries" => "Rain",
-      "Sleet" => "Rain",
-      "Freezing Rain" => "Rain",
-      "Mostly Cloudy w/ Flurries" => "Rain",
-      "Mostly Cloudy w/ T-Storms" => "Rain",
-      "Partly Cloudy w/ T-Storms" => "Rain",
-      "Mostly Cloudy w/ Showers" => "Rain",
-      "Partly Cloudy w/ Showers" => "Rain",
-      "Mostly Cloudy" => "Rain",
-      "Snow" => "Snow",
-      "Mostly Cloudy w/ Snow" => "Snow",
-      "Ice" => "Snow",
-      "Rain and Snow" => "Snow",
-      "Mostly Cloudy w/ Snow" => "Snow",
-      "Mostly Cloudy w/ Flurries" => "Snow",
-      "Intermittent Clouds" => "Cloudy",
-      "Mostly Cloudy" => "Cloudy",
-      "Cloudy" => "Cloudy",
-      "Dreary (Overcast)" => "Cloudy",
-      "Fog" => "Cloudy",
-      "Partly Cloudy" => "Cloudy",
-      "Intermittent Clouds" => "Cloudy",
-      "Clear" => "Clear",
-      "Mostly Clear" => "Clear",
-      "Sunny" => "Sunny",
-      "Mostly Sunny" => "Sunny",
-      "Partly Sunny" => "Sunny",
-      "Hazy Sunshine" => "Sunny",
-      "Hot" => "Hot",
-      "Cold" => "Cold",
+      "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", 
+      "Partly Sunny w/ T-Storms", "Rain", "Flurries", "Mostly Cloudy w/ Flurries", "Partly Sunny w/ Flurries", "Sleet", "Freezing Rain", 
+      "Mostly Cloudy w/ Flurries", "Mostly Cloudy w/ T-Storms", "Partly Cloudy w/ T-Storms", "Mostly Cloudy w/ Showers", "Partly Cloudy w/ Showers", "Mostly Cloudy"],
+      "Snow" => ["Snow", "Mostly Cloudy w/ Snow", "Ice", "Rain and Snow", "Mostly Cloudy w/ Snow", "Mostly Cloudy w/ Flurries"],
+      "Cloudy" => ["Intermittent Clouds", "Mostly Cloudy", "Cloudy", "Dreary (Overcast)", "Fog", "Partly Cloudy", "Intermittent Clouds"],
+      "Clear" => ["Clear", "Mostly Clear"],
+      "Sunny" => ["Sunny", "Mostly Sunny", "Partly Sunny", "Hazy Sunshine"],
+      "Hot" => ["Hot"],
+      "Cold" => ["Cold"],
     }
 
-    parsed_conditions = conditions_hash.select do |key, value|
-      return value if key == weather
+    parsed_conditions = []
+    conditions_hash.each do |key, value|
+      parsed_conditions << key if value.find { |l| l == data }
     end
-    parsed_conditions
+    parsed_conditions.pop
   end
 
   def self.color(input)
-    temp = imperial(input)
+    temp = metric(input)
     case temp
     when -22..18
       "blue"
@@ -174,9 +143,5 @@ class Weather < OpenStruct
     else
       "please refresh data"
     end
-  end
-
-  def self.weather_text(condition)
-    # this will grab weather icon number and then render the correct SCSS class  
   end
 end

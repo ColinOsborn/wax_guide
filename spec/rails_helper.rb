@@ -6,8 +6,16 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'capybara/rails'
+require 'shoulda/matchers'
 require 'vcr'
 # Add additional requires below this line. Rails is not loaded until this point!
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'

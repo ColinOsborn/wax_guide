@@ -3,15 +3,20 @@
   <hr class="my-4">
     <div class="container text-center">
       <ul class="location-list">
-        <% @output.each do |location| %>
-          <li> Location Name: <%=  location["LocalizedName"] %></li>
-            <li> Country: <%= location["AdministrativeArea"]["ID"] %>, <%= location["AdministrativeArea"]["LocalizedName"] %></li>
-              <%= form_tag location_path, :method => 'POST' do %>
-                <div class="form-group">
-                  <%= hidden_field 'location', nil, :value => location["Key"], class: "form-group" %>                    
-                  <%= submit_tag "Search This Location", class: "btn btn-success location-search" %> 
+        <% if Weather.error_handling(@output) == true %>
+          <h4>Sorry! An error has occured. Please search again!</h4>
+          <%= link_to 'Home', '/', class: "btn btn-success"%>
+        <% else %>
+          <% @output.each do |location| %>
+            <li> Location Name: <%=  location["LocalizedName"] %></li>
+              <li> State/Country: <%= location["AdministrativeArea"]["ID"] %>, <%= location["AdministrativeArea"]["LocalizedName"] %></li>
+                <%= form_tag location_path, :method => 'POST' do %>
+                  <div class="form-group">
+                    <%= hidden_field 'location', nil, :value => location["Key"], class: "form-group" %>                    
+                    <%= submit_tag "Search This Location", class: "btn btn-success location-search" %> 
                     <% end %>
-              <hr class="my-4">
+                <hr class="my-4">
+              <% end %>
             <% end %>
       </ul>
         <br>
