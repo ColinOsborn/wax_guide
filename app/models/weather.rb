@@ -98,7 +98,7 @@ class Weather < OpenStruct
   end
 
   def self.color(input)
-    temp = imperial(input)
+    temp = metric(input)
     case temp
     when -22..18
       "blue"

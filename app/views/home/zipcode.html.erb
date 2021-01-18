@@ -9,7 +9,7 @@
         <% else %>
           <% @output.each do |location| %>
             <li> Location Name: <%=  location["LocalizedName"] %></li>
-              <li> Country: <%= location["AdministrativeArea"]["ID"] %>, <%= location["AdministrativeArea"]["LocalizedName"] %></li>
+              <li> State/Country: <%= location["AdministrativeArea"]["ID"] %>, <%= location["AdministrativeArea"]["LocalizedName"] %></li>
                 <%= form_tag location_path, :method => 'POST' do %>
                   <div class="form-group">
                     <%= hidden_field 'location', nil, :value => location["Key"], class: "form-group" %>                    
