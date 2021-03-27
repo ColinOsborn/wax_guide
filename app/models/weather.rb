@@ -7,7 +7,7 @@ class Weather < OpenStruct
 
   def self.error_handling(input)
     code = input.first
-    code.include?("Unauthorized")
+    code.include?('Unauthorized')
   end
 
   def self.output_parse(input)
@@ -16,19 +16,20 @@ class Weather < OpenStruct
 
   def self.metric(input)
     data = output_parse(input)
-    temp = data["Temperature"]["Metric"]["Value"]
-    temp.nil? ? "Error" : temp
+    temp = data['Temperature']['Metric']['Value']
+    binding.pry
+    temp.nil? ? 'Error' : temp
   end
 
   def self.imperial(input)
     data = output_parse(input)
-    temp = data["Temperature"]["Imperial"]["Value"]
+    temp = data['Temperature']['Imperial']['Value']
     temp.nil? ? "Error" : temp
   end
 
   def self.precipitation(input)
     precip = output_parse(input)
-    precip["PrecipitationType"]
+    precip['PrecipitationType']
     # Still needs a test
   end
 
@@ -49,34 +50,34 @@ class Weather < OpenStruct
     elsif "Red" && "Snow"
       "Toko Red"
     elsif "Yellow" && "Sunny"
-      "Toko Yellow"
-    elsif "Red/Yellow" && "Snow"
-      "Toko Yellow. If temps start dropping or cold snow, mix with Toko Red"
+      'Toko Yellow'
+    elsif "Red/Yellow" && 'Snow'
+      'Toko Yellow. If temps start dropping or cold snow, mix with Toko Red'
     else nil || nil
-        "An Error occured"
+        'An Error occured'
     end
   end
 
   def self.toko_temp_range(temp)
     case temp
       when -22..10
-        "Blue"
+        'Blue'
       when 11..18
-        "Blue/Red"
+        'Blue/Red'
       when 19..24
-        "Red"
+        'Red'
       when 25..29
-        "Red/Yellow"
+        'Red/Yellow'
       when 29..100
-        "Yellow"
+        'Yellow'
       else
-        "Error, Please try me again"
+        'Error, Please try me again'
     end
   end
 
   def self.conditions_parse(text)
     weather = output_parse(text)
-    data = weather["WeatherText"]
+    data = weather['WeatherText']
 
     conditions_hash = {
       "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", 
@@ -101,47 +102,47 @@ class Weather < OpenStruct
     temp = metric(input)
     case temp
     when -22..18
-      "blue"
+      'blue'
     when 19..28
-      "red"
+      'red'
     when 29..100
-      "yellow"
+      'yellow'
     else
-      " "
+      ' '
     end
   end
 
   def self.swix_description(temp)
     case temp
     when -25..10
-      "CH4 Green"
+      'CH4 Green'
     when 11..15
-      "CH5 Turquoise"
+      'CH5 Turquoise'
     when 15..23
-      "CH6 Blue"
+      'CH6 Blue'
     when 24..31
-      "CH7 Violet"
+      'CH7 Violet'
     when 32..50
-      "CH10 Yellow"
+      'CH10 Yellow'
     else
-      "please refresh data"
+      'please refresh data'
     end
   end
 
   def self.swix_color(temp)
     case temp
     when -25..10
-      "green"
+      'green'
     when 11..15
-      "turquoise"
+      'turquoise'
     when 15..23
-      "blue"
+      'blue'
     when 24..31
-      "violet" 
+      'violet'
     when 32..50
-      "yellow"
+      'yellow'
     else
-      "please refresh data"
+      'please refresh data'
     end
   end
 end
