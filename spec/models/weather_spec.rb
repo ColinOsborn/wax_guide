@@ -4,7 +4,7 @@ RSpec.describe Weather, type: :model do
   context 'handles unauthorized or data with errors ' do
     it 'detects an unauthorized call' do
       error = {"Code"=>"Unauthorized", "Message"=>"Api Authorization failed", "Reference"=>"/locations/v1/cities/autocomplete?apikey=&q=Aspen"}
-      
+
       handled = Weather.error_handling(error)
       expect(handled).to eq(true)
     end
@@ -19,7 +19,7 @@ RSpec.describe Weather, type: :model do
              "Imperial"=>{"Value"=>19.0, "Unit"=>"F", "UnitType"=>18}},
              "MobileLink"=>"http://m.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us",
              "Link"=>"http://www.accuweather.com/en/us/aspen-co/81611/current-weather/332154?lang=en-us"}]
-      
+
       better = {"LocalObservationDateTime"=>"2021-01-08T22:10:00-07:00", "EpochTime"=>1610169000, 
               "WeatherText"=>"Partly cloudy", "WeatherIcon"=>35, "HasPrecipitation"=>false, 
               "PrecipitationType"=>nil, "IsDayTime"=>false, 
@@ -47,7 +47,7 @@ RSpec.describe Weather, type: :model do
 
     it 'returns an error instead of breaking' do
       data = [{"Temperature"=>{"Metric"=>{"Value"=>nil, "Unit"=>"C", "UnitType"=>17}}}]
-      
+
       error = Weather.metric(data)
       expect(error).to eq("Error")
     end
@@ -55,7 +55,7 @@ RSpec.describe Weather, type: :model do
     it 'cleans the imperial temperature data' do
       data = [{"Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17}, 
               "Imperial"=>{"Value"=>19.0, "Unit"=>"F", "UnitType"=>18}}}]
-      
+
       farenheit = Weather.imperial(data)
       expect(farenheit).to eq(19)
     end
@@ -63,7 +63,7 @@ RSpec.describe Weather, type: :model do
     it 'returns and error instead of breaking' do
       data = [{"Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17}, 
               "Imperial"=>{"Value"=>nil, "Unit"=>"F", "UnitType"=>18}}}]
-      
+
       error = Weather.imperial(data)
       expect(error).to eq("Error")
     end
@@ -82,7 +82,7 @@ RSpec.describe Weather, type: :model do
              "Temperature"=>{"Metric"=>{"Value"=>-7.2, "Unit"=>"C", "UnitType"=>17},
              "Imperial"=>{"Value"=>17, "Unit"=>"F", "UnitType"=>18}},
            }]
-    
+
     true_blue = Weather.description(blue, blue)
     # not_red_blue = Weather.description(not_red_blue, not_red_blue)
     # warm = Weather.description(yellow)

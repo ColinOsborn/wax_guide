@@ -2,7 +2,7 @@ class UserSessionsController < ApplicationController
   before_action :zero_users_or_authenticated, only: [:new, :create]
 
   def zero_users_or_authenticated
-    unless User.count == 0 || current_user
+    unless User.count.zero? || current_user
       redirect_to root_path
       return false
     end

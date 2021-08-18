@@ -6,6 +6,7 @@
         <%= @output.first["PrecipitationType"] && @output.first["HasPrecipitation"] %>
       <% end %>
     <hr class="my-4">
-        The best wax for your conditions is: <%= Weather.description(@output, @output) %>
+      The best wax for your conditions is: <%= Weather.description(@output, @output) %>
     <hr class="my-4">
+      <p>Be sure check out the Wax Tips page <%= link_to 'here','/tips' %> for more details.</p> 
 </div>
