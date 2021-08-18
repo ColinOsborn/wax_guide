@@ -81,15 +81,15 @@ class Weather < OpenStruct
     data = weather[:WeatherText]
 
     conditions_hash = {
-      'Rain' => %w[Showers, Mostly Cloudy w/ Showers, Partly Sunny w/ Showers, T-Storms, Mostly Cloudy w/ T-Storms,
-      Partly Sunny w/ T-Storms, Rain, Flurries, Mostly Cloudy w/ Flurries, Partly Sunny w/ Flurries, Sleet, Freezing Rain,
-      Mostly, Cloudy w/ Flurries, Mostly Cloudy w/ T-Storms, Partly Cloudy w/ T-Storms, Mostly Cloudy w/ Showers, Partly Cloudy w/ Showers, Mostly Cloudy],
-      'Snow' => %w[Snow, Mostly Cloudy w/ Snow, Ice, Rain and Snow, Mostly Cloudy w/ Snow, Mostly Cloudy w/ Flurries],
-      'Cloudy' => %w[Intermittent Clouds, Mostly Cloudy, Cloudy, Dreary (Overcast), Fog, Partly Cloudy, Intermittent Clouds],
-      'Clear' => %w[Clear, Mostly Clear],
-      'Sunny' => %w[Sunny, Mostly Sunny, Partly Sunny, Hazy Sunshine],
-      'Hot' => %w[Hot],
-      'Cold' => %w[Cold]
+      "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", 
+      "Partly Sunny w/ T-Storms", "Rain", "Flurries", "Mostly Cloudy w/ Flurries", "Partly Sunny w/ Flurries", "Sleet", "Freezing Rain", 
+      "Mostly Cloudy w/ Flurries", "Mostly Cloudy w/ T-Storms", "Partly Cloudy w/ T-Storms", "Mostly Cloudy w/ Showers", "Partly Cloudy w/ Showers", "Mostly Cloudy"],
+      "Snow" => ["Snow", "Mostly Cloudy w/ Snow", "Ice", "Rain and Snow", "Mostly Cloudy w/ Snow", "Mostly Cloudy w/ Flurries"],
+      "Cloudy" => ["Intermittent Clouds", "Mostly Cloudy", "Cloudy", "Dreary (Overcast)", "Fog", "Partly Cloudy", "Intermittent Clouds"],
+      "Clear" => ["Clear", "Mostly Clear"],
+      "Sunny" => ["Sunny", "Mostly Sunny", "Partly Sunny", "Hazy Sunshine"],
+      "Hot" => ["Hot"],
+      "Cold" => ["Cold"],
     }
 
     parsed_conditions = []
