@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
+  devise_for :users
+  
   root to: 'home#index'
   resources :home, only: [:index]
   resources :tips, only: [:index]
-  resources :users
-  resources :user_sessions, only: [:new, :create, :destroy]
 
   resources :users do
     resources :skis
