@@ -1,3 +1,6 @@
+<% if Weather.error_handling(@output) == true %>
+  <%= render 'shared/error_catch' %>
+<% else %>
 <div class="jumbotron container text-center <%= Weather.color(@output) %>">
   <h1 class="display-4">WaxGuide Recomendation</h1>
     <p class="lead">The current temperature is: <%= Weather.metric(@output) %> C or <%= Weather.imperial(@output) %> F</p>
@@ -7,6 +10,7 @@
       <% end %>
     <hr class="my-4">
       The best wax for your conditions is: <%= Weather.description(@output) %>
+      <% end %>
     <hr class="my-4">
       <p>Be sure check out the Wax Tips page <%= link_to 'here','/tips' %> for more details.</p> 
 </div>
