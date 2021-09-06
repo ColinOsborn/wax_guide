@@ -4,9 +4,9 @@
     <hr class="my-4">
     <p>Where are you skiing? Find your location</p>
     <div class="container text-center">
-      <%= form_tag zipcode_path, :method => 'POST' do %>
+      <%= form_tag search_path, :method => 'POST' do %>
         <div class="form-group">
-          <%= text_field_tag 'zipcode', nil, placeholder: "Location Name", class: "form-group" %>
+          <%= text_field_tag 'location', nil, placeholder: "Location Name", class: "form-group" %>
           <%= submit_tag "Search", class: "btn btn-outline-success" %>
         <% end %>
     </div>

@@ -1,3 +1,4 @@
+
 # class UserSessionsController < ApplicationController
 #     before_action :zero_users_or_authenticated, only: [:new, :create]
 
@@ -26,3 +27,4 @@
 #     end
 
 # end
+

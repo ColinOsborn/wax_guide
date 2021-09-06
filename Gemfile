@@ -34,6 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'faraday'
 gem 'faraday_middleware'
+gem 'figaro'
 gem 'pry'
 
 # Use ActiveStorage variant

@@ -34,7 +34,6 @@ class WeatherService
   end
 
   def get_autocomplete_search(location)
-    # Still need to run in postman for testing
     response = @connection.get("/locations/v1/cities/autocomplete?apikey=#{@api_key}&q=#{location}")
     parse(response)
   end
@@ -46,6 +45,6 @@ class WeatherService
   end
 
   def parse(response)
-    JSON.parse(response.body)
+    JSON.parse(response.body, object_class: OpenStruct)
   end
 end

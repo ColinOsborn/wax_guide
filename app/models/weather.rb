@@ -1,13 +1,15 @@
 class Weather < OpenStruct
-  require 'pry'
 
   def self.service
     @@service ||= WeatherService.new
   end
 
   def self.error_handling(input)
-    code = input.first
-    code.include?("Unauthorized")
+    unless input.is_a?(Array)
+      true
+    else
+      false
+    end
   end
 
   def self.output_parse(input)
@@ -16,67 +18,84 @@ class Weather < OpenStruct
 
   def self.metric(input)
     data = output_parse(input)
-    temp = data["Temperature"]["Metric"]["Value"]
-    temp.nil? ? "Error" : temp
+    temp = data[:Temperature][:Metric][:Value]
+    temp.nil? ? 'Error' : temp
   end
 
   def self.imperial(input)
     data = output_parse(input)
-    temp = data["Temperature"]["Imperial"]["Value"]
-    temp.nil? ? "Error" : temp
+    temp = data[:Temperature][:Imperial][:Value]
+    temp.nil? ? 'Error' : temp
   end
 
   def self.precipitation(input)
-    precip = output_parse(input)
-    precip["PrecipitationType"]
     # Still needs a test
+    precip = output_parse(input)
+    precip[:PrecipitationType]
   end
 
-  def self.description(temperature, conditions)
-    parsed_temp = imperial(temperature)
-    temp = toko_temp_range(parsed_temp)
-    condition = conditions_parse(conditions)
-    initial = temp
+  def self.conditions_adjust(temperature)
+    temp = imperial(temperature)
+    condition = conditions_parse(temperature)
 
-    if "Blue" && "Sunny"
-      "Toko Blue"
-    elsif "Blue/Red" && "Snow"
-      "Toko Blue. When new snow is present, it's extra cold and coarse."
-    elsif "Blue/Red" && "Sunny"
-      "Toko Red. If things stay sunny. Red only, if temps start dropping, consider mixing some Toko Blue 50-50"
-    elsif "Red" && "Sunny"
-      "Toko Red"
-    elsif "Red" && "Snow"
-      "Toko Red"
-    elsif "Yellow" && "Sunny"
-      "Toko Yellow"
-    elsif "Red/Yellow" && "Snow"
-      "Toko Yellow. If temps start dropping or cold snow, mix with Toko Red"
-    else nil || nil
-        "An Error occured"
+    case condition
+    when 'Sunny'
+      temp += 3
+    when 'Snow'
+      temp +- 7
+    when 'Rain'
+      temp += 5
+    when 'Clear'
+      temp +- 2
+    when 'Cold'
+      temp +- 7
+    when 'Hot'
+      temp += 10
+    when 'Recent Snow'
+      temp +- 10
+    else
+      temp
+    end
+  end
+
+  def self.description(temperature)
+    updated_temp = conditions_adjust(temperature)
+    case updated_temp
+    when -22..10
+      "When new snow is present, it's extra cold and coarse. The coldest waxes will be your best option"
+    when 15..32
+      'If things stay sunny, consider the warmer wax only, if temps start dropping, consider mixing some colder wax 50-50.'
+    when 32..36
+      'Still need a good description for this'
+    when 37..60
+      'Look for your warmest wax and some wet struture to add to the ski'
+    when 60..100
+      'Are you really going skiing?'
+    else
+      'An Error has occured, please try again'
     end
   end
 
   def self.toko_temp_range(temp)
     case temp
-      when -22..10
-        "Blue"
-      when 11..18
-        "Blue/Red"
-      when 19..24
-        "Red"
-      when 25..29
-        "Red/Yellow"
-      when 29..100
-        "Yellow"
-      else
-        "Error, Please try me again"
+    when -22..10
+      'Blue'
+    when 11..18
+      'Blue/Red'
+    when 19..24
+      'Red'
+    when 25..29
+      'Red/Yellow'
+    when 29..100
+      'Yellow'
+    else
+      'Error, Please try me again'
     end
   end
 
   def self.conditions_parse(text)
     weather = output_parse(text)
-    data = weather["WeatherText"]
+    data = weather[:WeatherText]
 
     conditions_hash = {
       "Rain" => ["Showers", "Mostly Cloudy w/ Showers", "Partly Sunny w/ Showers", "T-Storms", "Mostly Cloudy w/ T-Storms", 
@@ -89,7 +108,6 @@ class Weather < OpenStruct
       "Hot" => ["Hot"],
       "Cold" => ["Cold"],
     }
-
     parsed_conditions = []
     conditions_hash.each do |key, value|
       parsed_conditions << key if value.find { |l| l == data }
@@ -98,50 +116,56 @@ class Weather < OpenStruct
   end
 
   def self.color(input)
-    temp = metric(input)
+    # This is based of air temp
+    temp = imperial(input)
+
     case temp
-    when -22..18
-      "blue"
-    when 19..28
-      "red"
-    when 29..100
-      "yellow"
+    when -22..14
+      'blue'
+    when 15..36
+      'red'
+    when 37..60
+      'yellow'
+    when 60..100
+      "Are you sure you're XC skiing?"
     else
-      " "
+      'please refresh data'
     end
   end
 
   def self.swix_description(temp)
+    # This will be extracted into a different model
     case temp
     when -25..10
-      "CH4 Green"
+      'CH4 Green'
     when 11..15
-      "CH5 Turquoise"
+      'CH5 Turquoise'
     when 15..23
-      "CH6 Blue"
+      'CH6 Blue'
     when 24..31
-      "CH7 Violet"
+      'CH7 Violet'
     when 32..50
-      "CH10 Yellow"
+      'CH10 Yellow'
     else
-      "please refresh data"
+      'please refresh data'
     end
   end
 
   def self.swix_color(temp)
+    #This is only here for info before moving into a seperate model
     case temp
     when -25..10
-      "green"
+      'green'
     when 11..15
-      "turquoise"
+      'turquoise'
     when 15..23
-      "blue"
+      'blue'
     when 24..31
-      "violet" 
+      'violet'
     when 32..50
-      "yellow"
+      'yellow'
     else
-      "please refresh data"
+      'please refresh data'
     end
   end
 end
