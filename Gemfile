@@ -13,6 +13,7 @@ gem "websocket-extensions", ">= 0.1.5"
 gem "activesupport", ">= 5.2.4.3"
 gem "actionpack", ">= 5.2.4.3"
 gem 'sorcery'
+gem 'devise'
 # React rails setup
 gem 'webpacker'
 gem 'react-rails'
