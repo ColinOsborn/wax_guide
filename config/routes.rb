@@ -11,9 +11,6 @@ Rails.application.routes.draw do
 
   resource :dashboard, only: [:show]
 
-  get 'login' => 'user_sessions#new'
-  get 'logout' => 'user_sessions#destroy'
-
   post "search" => "home#search"
   post "location" => "home#location"
 end
