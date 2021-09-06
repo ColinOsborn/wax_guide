@@ -15,6 +15,8 @@
   <body>
     <%= render 'layouts/header' %>
     <br>
+    <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
     <div class="col-md-12">
       <% flash.each do|key, message| %>
         <div class="text-center alert alert-<%= key == 'notice'? 'success': 'danger' %>">

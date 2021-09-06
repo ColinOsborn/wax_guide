@@ -13,6 +13,7 @@ gem "websocket-extensions", ">= 0.1.5"
 gem "activesupport", ">= 5.2.4.3"
 gem "actionpack", ">= 5.2.4.3"
 gem 'sorcery'
+gem 'devise'
 # React rails setup
 gem 'webpacker'
 gem 'react-rails'
@@ -31,7 +32,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'figaro'
