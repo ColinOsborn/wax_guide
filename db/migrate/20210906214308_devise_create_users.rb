@@ -7,6 +7,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
+      ## Custom Fields
+      t.string :name
+
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
@@ -16,8 +19,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
 
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false
-      # t.datetime :current_sign_in_at
-      # t.datetime :last_sign_in_at
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
       # t.inet     :current_sign_in_ip
       # t.inet     :last_sign_in_ip
 
