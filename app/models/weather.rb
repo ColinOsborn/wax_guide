@@ -5,9 +5,11 @@ class Weather < OpenStruct
   end
 
   def self.error_handling(input)
-    # input[:Code].include?('Unauthorized')
-    # for testing reasons.... this is set to false
-    false
+    unless input.is_a?(Array)
+      true
+    else
+      false
+    end
   end
 
   def self.output_parse(input)
@@ -35,7 +37,7 @@ class Weather < OpenStruct
   def self.conditions_adjust(temperature)
     temp = imperial(temperature)
     condition = conditions_parse(temperature)
-    
+
     case condition
     when 'Sunny'
       temp += 3
