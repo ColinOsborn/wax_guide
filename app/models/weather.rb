@@ -1,5 +1,4 @@
 class Weather < OpenStruct
-  require 'pry'
 
   def self.service
     @@service ||= WeatherService.new
@@ -28,34 +27,50 @@ class Weather < OpenStruct
   end
 
   def self.precipitation(input)
+    # Still needs a test
     precip = output_parse(input)
     precip[:PrecipitationType]
-    # Still needs a test
   end
 
-  def self.description(temperature, conditions)
-    parsed_temp = imperial(temperature)
-    temp = toko_temp_range(parsed_temp)
-    binding.pry
-    condition = conditions_parse(conditions)
-    initial = temp
+  def self.conditions_adjust(temperature)
+    temp = imperial(temperature)
+    condition = conditions_parse(temperature)
+    
+    case condition
+    when 'Sunny'
+      temp += 3
+    when 'Snow'
+      temp +- 7
+    when 'Rain'
+      temp += 5
+    when 'Clear'
+      temp +- 2
+    when 'Cold'
+      temp +- 7
+    when 'Hot'
+      temp += 10
+    when 'Recent Snow'
+      temp +- 10
+    else
+      temp
+    end
+  end
 
-    if 'Blue' && 'Sunny'
-      'Toko Blue'
-    elsif 'Blue/Red' && 'Snow'
-      "Toko Blue. When new snow is present, it's extra cold and coarse."
-    elsif "Blue/Red" && 'Sunny'
-      "Toko Red. If things stay sunny. Red only, if temps start dropping, consider mixing some Toko Blue 50-50."
-    elsif "Red" && 'Sunny'
-      'Toko Red'
-    elsif "Red" && "Snow"
-      "Toko Red"
-    elsif "Yellow" && "Sunny"
-      'Toko Yellow'
-    elsif "Red/Yellow" && 'Snow'
-      'Toko Yellow. If temps start dropping or cold snow, mix with Toko Red'
-    else nil || nil
-        'An Error occured'
+  def self.description(temperature)
+    updated_temp = conditions_adjust(temperature)
+    case updated_temp
+    when -22..10
+      "When new snow is present, it's extra cold and coarse. The coldest waxes will be your best option"
+    when 15..32
+      'If things stay sunny, consider the warmer wax only, if temps start dropping, consider mixing some colder wax 50-50.'
+    when 32..36
+      'Still need a good description for this'
+    when 37..60
+      'Look for your warmest wax and some wet struture to add to the ski'
+    when 60..100
+      'Are you really going skiing?'
+    else
+      'An Error has occured, please try again'
     end
   end
 
@@ -91,7 +106,6 @@ class Weather < OpenStruct
       "Hot" => ["Hot"],
       "Cold" => ["Cold"],
     }
-
     parsed_conditions = []
     conditions_hash.each do |key, value|
       parsed_conditions << key if value.find { |l| l == data }
@@ -100,20 +114,25 @@ class Weather < OpenStruct
   end
 
   def self.color(input)
-    temp = metric(input)
+    # This is based of air temp
+    temp = imperial(input)
+
     case temp
-    when -22..18
+    when -22..14
       'blue'
-    when 19..28
+    when 15..36
       'red'
-    when 29..100
+    when 37..60
       'yellow'
+    when 60..100
+      "Are you sure you're XC skiing?"
     else
-      ' '
+      'please refresh data'
     end
   end
 
   def self.swix_description(temp)
+    # This will be extracted into a different model
     case temp
     when -25..10
       'CH4 Green'
@@ -131,6 +150,7 @@ class Weather < OpenStruct
   end
 
   def self.swix_color(temp)
+    #This is only here for info before moving into a seperate model
     case temp
     when -25..10
       'green'
