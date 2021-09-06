@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   get 'login' => 'user_sessions#new'
   get 'logout' => 'user_sessions#destroy'
 
-  post "zipcode" => "home#zipcode"
   post "search" => "home#search"
   post "location" => "home#location"
 end
