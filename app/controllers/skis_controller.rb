@@ -1,13 +1,11 @@
 class SkisController < ApplicationController
+  before_action :find_user, only: %i[ new create show index ]
 
   def new
-    @user = User.find(params[:user_id])
     @ski = Ski.new
   end
 
   def create
-    # find user - move this to a before filter
-    @user = User.find(params[:user_id])
     @ski = @user.ski.new(ski_params)
     if @ski.save!
       flash[:notice] = 'Ski successfully created!'
@@ -18,16 +16,18 @@ class SkisController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
     @ski = Ski.find(params[:id])
   end
 
   def index
-    @user = User.find(params[:user_id])
     @skis = @user.skis.all
   end
 
   private
+
+  def find_user
+    @user = User.find(params[:user_id])
+  end
 
   def ski_params
     params.require(:ski).permit(
@@ -35,7 +35,8 @@ class SkisController < ApplicationController
       :model,
       :skate,
       :classic,
-      :size
+      :size,
+      :grind,
     )
   end
 end
