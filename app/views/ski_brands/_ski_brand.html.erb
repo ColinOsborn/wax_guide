@@ -1,0 +1,6 @@
+  <div class="card">
+  <%= image_tag ski_brand.thumb_image unless ski_brand.thumb_image.nil? %>
+  <p class="card-text">
+    <span><%= link_to ski_brand.name, portfolio_show_path(ski_brand) %></span> <%= ski_brand.subtitle %>
+  </p>
+</div>
