@@ -1,16 +1,17 @@
 class SkisController < ApplicationController
   before_action :find_user, only: %i[ new create show index ]
+  before_action :find_ski, only: %i[ show edit update ]
 
   def new
     @ski = Ski.new
   end
 
   def edit
-    @ski = Ski.find(params[:id])
+    find_ski
   end
   
   def update
-    @ski = Ski.find(params[:id])
+    find_ski
     respond_to do |format|
       if @ski.update!(ski_params)
         format.html { redirect_to user_ski_path(@user.id, @ski.id), notice: 'the recored successfully updated!' }
@@ -31,7 +32,7 @@ class SkisController < ApplicationController
   end
 
   def show
-    @ski = Ski.find(params[:id])
+    find_ski
   end
 
   def index
@@ -42,6 +43,10 @@ class SkisController < ApplicationController
 
   def find_user
     @user = User.find(params[:user_id])
+  end
+
+  def find_ski
+    @ski = Ski.find(params[:id])
   end
 
   def ski_params
