@@ -1,5 +1,5 @@
 class SkiBrand < ApplicationRecord
-  validates_presence_of :name, :subtitle, :body, :main_image, :thumb_image
+  validates_presence_of :name, :body, :main_image, :thumb_image
   after_initialize :set_defaults
 
   def set_defaults
