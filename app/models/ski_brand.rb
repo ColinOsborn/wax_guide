@@ -1,0 +1,2 @@
+class SkiBrand < ApplicationRecord
+end
