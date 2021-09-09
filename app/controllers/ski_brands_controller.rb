@@ -9,7 +9,7 @@ class SkiBrandsController < ApplicationController
     @ski_brand = SkiBrand.create!(ski_brand_params)
     respond_to do |format|
     if @ski_brand.save!
-      format.html { redirect_to portfolios_path, notice: "You've created a new ski brand!" }
+      format.html { redirect_to ski_brands_path, notice: "You've created a new ski brand!" }
     else
       format.html { render :new }
       end
