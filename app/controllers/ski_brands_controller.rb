@@ -1,4 +1,5 @@
 class SkiBrandsController < ApplicationController
+  access all: [:show, :index ], user: {except: [:destroy, :create, :new, :update, :edit]}, site_admin: :all
 
   def new
     @ski_brand = SkiBrand.new
@@ -17,6 +18,12 @@ class SkiBrandsController < ApplicationController
 
   def index
     @ski_brands = SkiBrand.all
+  end
+
+  def edit
+  end
+
+  def update
   end
 
   private
