@@ -1,6 +1,6 @@
 class Ski < ApplicationRecord
   belongs_to :user
-  validates_presence_of :brand, :model, :skate, :classic, :grind
+  validates_presence_of :brand, :model, :grind
   
   def self.cold
     where(grind: 'cold')

@@ -49,6 +49,8 @@ class Weather < OpenStruct
       temp +- 2
     when 'Cold'
       temp +- 7
+    when 'Cloudy'
+      temp +- 4
     when 'Hot'
       temp += 10
     when 'Recent Snow'

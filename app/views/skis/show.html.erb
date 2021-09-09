@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+    </div>
+
+    <div class="col-md-5">
+      <h1><%= @ski.brand %></h1>
+
+      <hr>
+
+      <em><%= @ski.model %></em>
+
+      <% if @ski.classic == true %>
+        <p>Classic</p>
+      <% end %>
+      <% if @ski.skate == true %>
+        <p>Skate</p>
+      <% end %>
+
+      <hr>
+      <p><%= @ski.size %></p>
+      <p><%= @ski.grind %></p>
+      <br>
+      <%= link_to 'My Gear Closet - all skis', dashboard_path %>
+      <%= link_to 'Edit/Update Ski Attributes', edit_user_ski_path(current_user.id, @ski.id) %>
+    </div>
+  </div>
+</div>

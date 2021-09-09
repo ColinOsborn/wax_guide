@@ -6,6 +6,7 @@
           <h1><%= @user.name %>'s Skis</h1>
           <%= @skis.inspect %>
           <%= link_to 'Dashboard', dashboard_path %>
+          <%= link_to 'Add new ski', new_user_ski_path(current_user.id) %>
         </div>
       </div>
     </div>

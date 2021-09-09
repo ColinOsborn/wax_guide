@@ -5,8 +5,23 @@ class SkisController < ApplicationController
     @ski = Ski.new
   end
 
+  def edit
+    @ski = Ski.find(params[:id])
+  end
+  
+  def update
+    @ski = Ski.find(params[:id])
+    respond_to do |format|
+      if @ski.update!(ski_params)
+        format.html { redirect_to user_ski_path(@user.id, @ski.id), notice: 'the recored successfully updated!' }
+      else
+        format.html { redirect_to :edit }
+      end
+    end
+  end
+
   def create
-    @ski = @user.ski.new(ski_params)
+    @ski = @user.skis.create!(ski_params)
     if @ski.save!
       flash[:notice] = 'Ski successfully created!'
       redirect_to user_ski_path(@user, @ski)
