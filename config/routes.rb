@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   resources :home, only: [:index]
   resources :tips, only: [:index]
+  resources :ski_brands
 
   resources :users do
     resources :skis

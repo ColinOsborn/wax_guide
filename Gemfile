@@ -21,6 +21,8 @@ gem 'react-rails'
 gem 'rails', '~>6.0.3.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
+# Use Petergate for permissions/authorization
+gem 'petergate', '~> 1.6', '>= 1.6.3'
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
 
