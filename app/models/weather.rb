@@ -1,4 +1,6 @@
 class Weather < OpenStruct
+  before_action :output_parse, only: %i[ metric, imperial ]
+  # This needs more testing to confirm
 
   def self.service
     @@service ||= WeatherService.new
@@ -58,6 +60,7 @@ class Weather < OpenStruct
     else
       temp
     end
+    adjusted_color(temp)
   end
 
   def self.description(temperature)
@@ -115,6 +118,21 @@ class Weather < OpenStruct
       parsed_conditions << key if value.find { |l| l == data }
     end
     parsed_conditions.pop
+  end
+
+  def self.adjusted_color(temp)
+    case temp
+    when -22..14
+      'blue'
+    when 15..36
+      'red'
+    when 37..60
+      'yellow'
+    when 60..100
+      "Are you sure you're XC skiing?"
+    else
+      'please refresh data'
+    end
   end
 
   def self.color(input)

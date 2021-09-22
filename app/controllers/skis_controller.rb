@@ -14,7 +14,7 @@ class SkisController < ApplicationController
     find_ski
     respond_to do |format|
       if @ski.update!(ski_params)
-        format.html { redirect_to user_ski_path(@user.id, @ski.id), notice: 'the recored successfully updated!' }
+        format.html { redirect_to user_ski_path(@user.id, @ski.id), notice: 'these ski details have successfully updated!' }
       else
         format.html { redirect_to :edit }
       end
