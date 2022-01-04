@@ -1,14 +1,28 @@
 class SkisController < ApplicationController
+  before_action :find_user, only: %i[ new create show index ]
+  before_action :find_ski, only: %i[ show edit update ]
 
   def new
-    @user = User.find(params[:user_id])
     @ski = Ski.new
   end
 
+  def edit
+    find_ski
+  end
+  
+  def update
+    find_ski
+    respond_to do |format|
+      if @ski.update!(ski_params)
+        format.html { redirect_to user_ski_path(@user.id, @ski.id), notice: 'these ski details have successfully updated!' }
+      else
+        format.html { redirect_to :edit }
+      end
+    end
+  end
+
   def create
-    # find user - move this to a before filter
-    @user = User.find(params[:user_id])
-    @ski = @user.ski.new(ski_params)
+    @ski = @user.skis.create!(ski_params)
     if @ski.save!
       SkiConfirmationMailer.with(user: @user, ski: @ski).ski_creation_confirmation.deliver_now
       flash[:notice] = 'Ski successfully created!'
@@ -19,16 +33,22 @@ class SkisController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
-    @ski = Ski.find(params[:id])
+    find_ski
   end
 
   def index
-    @user = User.find(params[:user_id])
     @skis = @user.skis.all
   end
 
   private
+
+  def find_user
+    @user = User.find(params[:user_id])
+  end
+
+  def find_ski
+    @ski = Ski.find(params[:id])
+  end
 
   def ski_params
     params.require(:ski).permit(
@@ -36,7 +56,8 @@ class SkisController < ApplicationController
       :model,
       :skate,
       :classic,
-      :size
+      :size,
+      :grind,
     )
   end
 end

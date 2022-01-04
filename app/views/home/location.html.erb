@@ -1,7 +1,7 @@
 <% if Weather.error_handling(@output) == true %>
   <%= render 'shared/error_catch' %>
 <% else %>
-<div class="jumbotron container text-center <%= Weather.color(@output) %>">
+<div class="jumbotron container text-center <%= Weather.adjusted_color(@output) %>">
   <h1 class="display-4">WaxGuide Recomendation</h1>
     <p class="lead">The current temperature is: <%= Weather.metric(@output) %> C or <%= Weather.imperial(@output) %> F</p>
     <p class="lead">Current weather conditions: <%= @output.first[:WeatherText] %> </p>

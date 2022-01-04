@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-block">
+    <div class="container">
+      <%= form_for [@user, @ski] do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <%= f.label :brand %><br />
+            <%= f.text_field :brand, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :model %><br />
+            <%= f.text_field :model, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :skate %><br />
+            <%= f.check_box :model, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :classic %><br />
+            <%= f.check_box :classic, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :size %><br />
+            <%= f.text_field :size, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :grind %><br />
+            <%= f.text_field :grind, class: 'form-control' %>
+          </div>
+
+        </div>
+          <div class="actions">
+            <%= f.submit "Create", class: "btn btn-success" %>
+          </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
