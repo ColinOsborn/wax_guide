@@ -15,3 +15,5 @@ Rails.application.routes.draw do
   post "search" => "home#search"
   post "location" => "home#location"
 end
+
+

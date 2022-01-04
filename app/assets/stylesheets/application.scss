@@ -18,3 +18,40 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+/*
+ * Custom styles
+ */
+
+ .card-block {
+   color: black;
+   text-align: left;
+ }
+
+ .auth-links a {
+   color:black;
+ }
+
+ .register-text {
+   text-align: right;
+ }
+
+ .login > .card {
+  width: 22rem;
+  margin: 0 auto; 
+  float: none;
+  margin-bottom: 10px;
+}
+
+/*
+ * Blog Custom styles
+ */
+
+ .social-links li {
+   font-size: 2.5em;
+ }
+ 
+ .app-nav span {
+   margin-left: 15px;
+   margin-right: 15px;
+ }
+ 
