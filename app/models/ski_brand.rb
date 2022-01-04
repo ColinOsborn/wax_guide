@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SkiBrand < ApplicationRecord
   validates_presence_of :name, :body, :main_image, :thumb_image
   after_initialize :set_defaults

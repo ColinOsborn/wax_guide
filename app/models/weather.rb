@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Weather < OpenStruct
 
   def self.service
