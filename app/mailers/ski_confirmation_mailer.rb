@@ -1,6 +1,6 @@
 class SkiConfirmationMailer < ApplicationMailer
 
-  def ski_creation_confirmation
+  def ski_confirmation_email
     @user = params[:user]
     @ski = params[:ski]
 

@@ -24,7 +24,7 @@ class SkisController < ApplicationController
   def create
     @ski = @user.skis.create!(ski_params)
     if @ski.save!
-      SkiConfirmationMailer.with(user: @user, ski: @ski).ski_creation_confirmation.deliver_now
+      SkiConfirmationMailer.with(user: @user, ski: @ski).ski_confirmation_email.deliver_now
       flash[:notice] = 'Ski successfully created!'
       redirect_to user_ski_path(@user, @ski)
     else

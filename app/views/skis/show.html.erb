@@ -21,8 +21,8 @@
       <p><%= @ski.size %></p>
       <p><%= @ski.grind %></p>
       <br>
-      <%= link_to 'My Gear Closet - all skis', dashboard_path %>
-      <%= link_to 'Edit/Update Ski Attributes', edit_user_ski_path(current_user.id, @ski.id) %>
+      <%= link_to 'My Gear Closet - all skis', dashboard_path(current_user) %>
+      <%= link_to 'Edit/Update Ski Attributes', edit_user_ski_path(current_user, @ski.id) %>
     </div>
   </div>
 </div>
