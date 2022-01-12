@@ -1,6 +1,6 @@
 class SkisController < ApplicationController
-  before_action :find_user, only: %i[ new create show index ]
-  before_action :find_ski, only: %i[ show edit update ]
+  before_action :find_user, only: %i[new create show index]
+  before_action :find_ski, only: %i[show edit update]
 
   def new
     @ski = Ski.new
@@ -9,12 +9,14 @@ class SkisController < ApplicationController
   def edit
     find_ski
   end
-  
+
   def update
-    find_ski
     respond_to do |format|
       if @ski.update!(ski_params)
-        format.html { redirect_to user_ski_path(@user.id, @ski.id), notice: 'these ski details have successfully updated!' }
+        format.html {
+          redirect_to user_ski_path(@user.id, @ski.id),
+          notice: 'these ski details have successfully updated!'
+        }
       else
         format.html { redirect_to :edit }
       end
