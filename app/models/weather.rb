@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Weather < OpenStruct
   before_action :output_parse, only: %i[ metric, imperial ]
   # This needs more testing to confirm

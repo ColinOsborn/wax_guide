@@ -3,6 +3,7 @@
     <h1 class="text-center">Account Dashboard</h1>
     <h3>Hello, <%= current_user.first_name %></h3>
 
-    <%= link_to 'My Skis', user_skis_path(current_user.id) %>
+    <%= link_to 'Users', users_path %>
+    <%= link_to 'My Skis', user_skis_path(current_user) %>
   </div>
 </div>
