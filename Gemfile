@@ -12,7 +12,8 @@ gem 'uglifier', '>= 1.3.0'
 gem "websocket-extensions", ">= 0.1.5"
 gem "activesupport", ">= 5.2.4.3"
 gem "actionpack", ">= 5.2.4.3"
-gem 'devise'
+# gem 'devise'
+gem "devise", github: "ghiculescu/devise", branch: "patch-2"
 gem 'sorcery'
 # for handling action mailer smtp protocol
 gem 'sendgrid-ruby'
