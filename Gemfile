@@ -27,7 +27,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Petergate for permissions/authorization
 gem 'petergate', '~> 1.6', '>= 1.6.3'
 # Use Puma as the app server
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5.6'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
