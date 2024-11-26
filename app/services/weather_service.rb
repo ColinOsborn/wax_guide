@@ -4,7 +4,8 @@ class WeatherService
 
   def initialize
     @connection = Faraday.new('http://dataservice.accuweather.com')
-    @api_key = ENV['API_KEY']
+    @api_key = 'jDpKdDSRYBtPsaRttaYwGHjd34KtOgxx'
+    # @api_key = ENV['API_KEY']
     @connection.headers['Authorization'] = "Bearer #{@api_key}"
   end
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Weather < OpenStruct
-  before_action :output_parse, only: %i[ metric, imperial ]
   # This needs more testing to confirm
 
   def self.service
@@ -9,11 +8,7 @@ class Weather < OpenStruct
   end
 
   def self.error_handling(input)
-    unless input.is_a?(Array)
-      true
-    else
-      false
-    end
+    input[:Code] == 'Unauthorized'
   end
 
   def self.output_parse(input)
@@ -39,9 +34,9 @@ class Weather < OpenStruct
   end
 
   def self.conditions_adjust(temperature)
-    temp = imperial(temperature)
+    temp = metric(temperature)
     condition = conditions_parse(temperature)
-
+binding.pry
     case condition
     when 'Sunny'
       temp += 3
@@ -54,7 +49,7 @@ class Weather < OpenStruct
     when 'Cold'
       temp +- 7
     when 'Cloudy'
-      temp +- 4
+      temp -= 4
     when 'Hot'
       temp += 10
     when 'Recent Snow'
@@ -111,9 +106,9 @@ class Weather < OpenStruct
       "Snow" => ["Snow", "Mostly Cloudy w/ Snow", "Ice", "Rain and Snow", "Mostly Cloudy w/ Snow", "Mostly Cloudy w/ Flurries"],
       "Cloudy" => ["Intermittent Clouds", "Mostly Cloudy", "Cloudy", "Dreary (Overcast)", "Fog", "Partly Cloudy", "Intermittent Clouds"],
       "Clear" => ["Clear", "Mostly Clear"],
-      "Sunny" => ["Sunny", "Mostly Sunny", "Partly Sunny", "Hazy Sunshine"],
+      "Sunny" => ["Sunny", "Mostly Sunny", "Partly sunny", "Hazy Sunshine"],
       "Hot" => ["Hot"],
-      "Cold" => ["Cold"],
+      "Cold" => ["Cold"]
     }
     parsed_conditions = []
     conditions_hash.each do |key, value|
@@ -123,7 +118,8 @@ class Weather < OpenStruct
   end
 
   def self.adjusted_color(temp)
-    case temp
+    range = metric(temp)
+    case range
     when -22..14
       'blue'
     when 15..36

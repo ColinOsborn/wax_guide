@@ -3,16 +3,8 @@
 class Ski < ApplicationRecord
   belongs_to :user
   validates_presence_of :brand, :model, :grind
-  
-  def self.cold
-    where(grind: 'cold')
-  end
 
-  def self.warm
-    where(grind: 'warm')
-  end
-
-  def self.wet
-    where(grind: 'wet')
-  end
+  scope :cold, -> { where(grind: :cold) }
+  scope :warm, -> { where(grind: :warm) }
+  scope :wet, -> { where(grind: :wet) }
 end
